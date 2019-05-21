@@ -1,7 +1,6 @@
 package com.example.sunray.mergedproject;
 
 public class Cell {
-    private String cellName;
     private String imageName;
     private boolean ship;
 

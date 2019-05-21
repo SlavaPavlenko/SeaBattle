@@ -26,15 +26,15 @@
         android:layout_width="205dp"
         android:layout_height="205dp"
         android:layout_marginStart="284dp"
+        android:layout_marginTop="140dp"
         android:layout_marginEnd="284dp"
-        android:layout_marginBottom="30dp"
         android:columnWidth="10dp"
         android:numColumns="10"
         android:padding="0dp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/playerGridView" />
 
     <ImageView
         android:id="@+id/ship_1_iv"
@@ -61,15 +61,16 @@
 
     <Button
         android:id="@+id/start_btn"
+        android:background="@drawable/round_button"
         android:layout_width="88dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="100dp"
-        android:layout_marginBottom="20dp"
         android:text="Start"
-        app:layout_constraintBottom_toTopOf="@+id/clear_btn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ship_3_iv" />
 
     <ImageView
         android:id="@+id/ship_2_iv"
@@ -139,14 +140,15 @@
 
     <Button
         android:id="@+id/clear_btn"
+        android:background="@drawable/round_button"
         android:layout_width="88dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="100dp"
-        android:layout_marginBottom="20dp"
         android:text="CLEAR"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/start_btn" />
 
 </android.support.constraint.ConstraintLayout>

@@ -5,4 +5,44 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <Switch
+        android:id="@+id/musicSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="100dp"
+        android:checked="true"
+        android:showText="false"
+        android:splitTrack="false"
+        android:switchMinWidth="50dp"
+        android:switchPadding="10dp"
+        android:text="Music"
+        android:textColor="@android:color/black"
+        android:textColorLink="@android:color/holo_blue_dark"
+        android:textSize="30sp"
+        android:theme="@style/switchStyle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Switch
+        android:id="@+id/soundSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="100dp"
+        android:checked="true"
+        android:showText="false"
+        android:splitTrack="false"
+        android:switchMinWidth="50dp"
+        android:switchPadding="10dp"
+        android:text="Switch"
+        android:textColor="@android:color/black"
+        android:textSize="30sp"
+        android:theme="@style/switchStyle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/musicSwitch" />
 </android.support.constraint.ConstraintLayout>

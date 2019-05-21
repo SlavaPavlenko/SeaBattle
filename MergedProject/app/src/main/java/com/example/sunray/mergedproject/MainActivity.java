@@ -14,6 +14,9 @@ public class MainActivity extends AppCompatActivity implements OnTouchListener {
 
     private TextView textView, tv;
     private Animation dimming, brighting;
+    Intent bgMusic;
+    Intent sound;
+    boolean changingActivity = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +31,31 @@ public class MainActivity extends AppCompatActivity implements OnTouchListener {
         textView.startAnimation(dimming);
         tv = findViewById(R.id.screen);
         tv.setOnTouchListener(this);
+
+        bgMusic = new Intent(this, bgMusicService.class);
+        startService(bgMusic);
+        sound = new Intent(this, soundService.class);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        textView.clearAnimation();
+        if (!changingActivity) stopService(bgMusic);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (changingActivity)
+            changingActivity = false;
+        else startService(bgMusic);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopService(bgMusic);
+        stopService(sound);
     }
 
     Animation.AnimationListener dimmingListener = new Animation.AnimationListener() {
@@ -69,6 +91,7 @@ public class MainActivity extends AppCompatActivity implements OnTouchListener {
     public boolean onTouch (View v, MotionEvent event) {
         int action = event.getAction();
         if (action == MotionEvent.ACTION_DOWN) {
+            changingActivity = true;
             Intent myIntent = new Intent(MainActivity.this, MenuActivity.class);
             startActivity(myIntent);
         }

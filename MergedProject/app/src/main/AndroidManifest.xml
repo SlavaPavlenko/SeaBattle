@@ -16,14 +16,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MenuActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".AboutActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".SettingsActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".PlayActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".MenuActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AboutActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SettingsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PlayActivity"
+            android:screenOrientation="portrait" />
+
+        <service
+            android:name=".bgMusicService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".soundService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

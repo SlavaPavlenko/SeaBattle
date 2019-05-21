@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -20,16 +19,7 @@ public class GridAdapter extends BaseAdapter {
     public GridAdapter(Context aContext, List<Cell> listData) {
         this.context = aContext;
         this.listData = listData;
-        layoutInflater = layoutInflater.from(aContext);
-    }
-
-    public GridAdapter(Context aContext) {
-        this.context = aContext;
-        layoutInflater = layoutInflater.from(aContext);
-    }
-
-    public void setListData(List<Cell> list) {
-        listData = list;
+        layoutInflater = LayoutInflater.from(aContext);
     }
 
     public void setItem(Integer index, Cell cell) {
@@ -69,7 +59,7 @@ public class GridAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public int getMipmapResIdByName(String resName)  {
+    private int getMipmapResIdByName(String resName)  {
         String pkgName = context.getPackageName();
 
         // Return 0 if not found.

@@ -1,5 +1,6 @@
 package com.example.sunray.mergedproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -33,6 +34,8 @@ public class PlayActivity extends AppCompatActivity {
     List<Cell> enemyList;
     ImageView chosenShip;
     AdapterView<?> parent_tmp;
+    Intent bgMusic;
+    boolean changingActivity = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,8 @@ public class PlayActivity extends AppCompatActivity {
         ship_4_iv.setOnClickListener(ship_iv_clickListener);
         playerGV.setOnItemClickListener(player_grid_clickListener);
         enemyGV.setOnItemClickListener(enemy_grid_clickListener);
+
+        bgMusic = new Intent(this, bgMusicService.class);
         start_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,6 +93,12 @@ public class PlayActivity extends AppCompatActivity {
                 ship_3_tv.setVisibility(View.INVISIBLE);
                 ship_4_tv.setVisibility(View.INVISIBLE);
                 chosenShip = null;
+                Cell cell1 = (Cell) playerGA.getItem(0);
+                Cell cell2 = (Cell) enemyGA.getItem(0);
+                if (cell1.hashCode() == cell2.hashCode())
+                    Toast.makeText(PlayActivity.this, "same hash", Toast.LENGTH_SHORT).show();
+                else Toast.makeText(PlayActivity.this, "different hash", Toast.LENGTH_SHORT).show();
+
             }
         });
         clear_btn.setOnClickListener(new View.OnClickListener() {
@@ -111,10 +122,33 @@ public class PlayActivity extends AppCompatActivity {
 
         playerList = getListData();
         enemyList = getListData();
-        playerGA = new GridAdapter(this, playerList);   //ошибка из-за одинакового контекста?
-        enemyGA = new GridAdapter(this, enemyList);
+        playerGA = new GridAdapter(playerGV.getContext(), playerList);      //ошибка из-за одинакового контекста?
+        enemyGA = new GridAdapter(enemyGV.getContext(), enemyList);         //PlayActivity.this?
+        if (playerGV.getContext() == enemyGV.getContext())
+            Toast.makeText(PlayActivity.this, "same context", Toast.LENGTH_SHORT).show();
+        else Toast.makeText(PlayActivity.this, "different context", Toast.LENGTH_SHORT).show();
         playerGV.setAdapter(playerGA);  //эти адаптеры как-то связаны?
         enemyGV.setAdapter(enemyGA);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (!changingActivity) stopService(bgMusic);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (changingActivity)
+            changingActivity = false;
+        else startService(bgMusic);
+    }
+
+    @Override
+    public void onBackPressed() {
+        changingActivity = true;
+        finish();
     }
 
     View.OnClickListener ship_iv_clickListener = new View.OnClickListener() {
@@ -159,7 +193,7 @@ public class PlayActivity extends AppCompatActivity {
                     Cell c = (Cell) enemyGA.getItem(position);
                     Toast.makeText(PlayActivity.this, c.getImageName(), Toast.LENGTH_SHORT).show();
 
-                    playerGA.setItem(position, new Cell("ship1", true));
+                    playerGA.setItem(position, new Cell("ship1", true));            //баг здесь!!!
                     //cell.setImageName("ship1");
 
                     c = (Cell) enemyGA.getItem(position);
@@ -666,9 +700,7 @@ public class PlayActivity extends AppCompatActivity {
                 } else forbidden = true;
             }
         }
-        if (!forbidden)
-            return true;
-        else return false;
+        return !forbidden;
     }
     private List<Cell> getListData() {
         List<Cell> list = new ArrayList();
